@@ -1,0 +1,313 @@
+definitions:
+  model.Card:
+    properties:
+      audio_url:
+        type: string
+      back:
+        type: string
+      created_at:
+        type: string
+      deck_id:
+        type: string
+      front:
+        type: string
+      id:
+        type: string
+      image_url:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.Deck:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  model.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  model.Response:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /cards:
+    get:
+      description: Retrieve all cards
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Card'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Get all cards
+      tags:
+      - Cards
+    post:
+      consumes:
+      - application/json
+      description: Create a new card with name, front, back, and optional audio/image
+        URLs
+      parameters:
+      - description: Card JSON
+        in: body
+        name: card
+        required: true
+        schema:
+          $ref: '#/definitions/model.Card'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Create a new card
+      tags:
+      - Cards
+    put:
+      consumes:
+      - application/json
+      description: Update a card by its UUID
+      parameters:
+      - description: Updated Card JSON
+        in: body
+        name: card
+        required: true
+        schema:
+          $ref: '#/definitions/model.Card'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Update a card
+      tags:
+      - Cards
+  /cards/{id}:
+    delete:
+      description: Delete a card by its UUID
+      parameters:
+      - description: Card UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Delete a card by ID
+      tags:
+      - Cards
+    get:
+      description: Retrieve a card by its UUID
+      parameters:
+      - description: Card UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Card'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Get a card by ID
+      tags:
+      - Cards
+  /decks:
+    get:
+      description: Retrieve all decks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Deck'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Get all decks
+      tags:
+      - Decks
+    post:
+      consumes:
+      - application/json
+      description: Create a new deck with a name
+      parameters:
+      - description: Deck JSON
+        in: body
+        name: deck
+        required: true
+        schema:
+          $ref: '#/definitions/model.Deck'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Create a new deck
+      tags:
+      - Decks
+  /decks/{id}:
+    delete:
+      description: Delete a deck by its UUID
+      parameters:
+      - description: Deck UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Delete a deck by ID
+      tags:
+      - Decks
+    get:
+      description: Retrieve a deck by its UUID
+      parameters:
+      - description: Deck UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Deck'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Get a deck by ID
+      tags:
+      - Decks
+    put:
+      consumes:
+      - application/json
+      description: Update a deck by its UUID
+      parameters:
+      - description: Deck UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated Deck JSON
+        in: body
+        name: deck
+        required: true
+        schema:
+          $ref: '#/definitions/model.Deck'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/model.ErrorResponse'
+      summary: Update a deck by ID
+      tags:
+      - Decks
+swagger: "2.0"
