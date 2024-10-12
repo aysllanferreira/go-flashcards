@@ -6,6 +6,11 @@ import (
 	"log"
 )
 
+// @title Flashcards API
+// @version 1.0
+// @description This is my flashcards API.
+// @host localhost:8080
+// @BasePath /
 func main() {
 	dbConnection, err := db.ConnectDB()
 	if err != nil {
